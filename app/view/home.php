@@ -331,7 +331,7 @@ text-decoration:none;
 						<span>Create Task</span>
 					</button>
 				</form>
-				<img src="app/assets/images/image-2.png" alt="" class="image-2">
+
 			</div>
             
         </center>
@@ -362,7 +362,7 @@ text-decoration:none;
 						<span>Add Employee</span>
 					</button>
 				</form>
-				<img src="app/assets/images/image-2.png" alt="" class="image-2">
+	
 			</div>
             
         </center>

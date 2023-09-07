@@ -52,7 +52,7 @@ $(function(){
         }
         const addEmployee = (data) => {
             $.post("../execute/exec.php",data,(res)=>{
-                console.log(res)
+                alert(res)
             })
         }
         isEmpty ? alert("all fields are required"): addEmployee(data);
@@ -94,7 +94,6 @@ $(function(){
     $(".play").on("click",function(e){
         e.preventDefault();
         const taskid = $(this).closest("tr").find(".taskid").text()
-        console.log(taskid)
         const data = {flag:"play",taskid:taskid}
         $.post("../execute/exec.php",data,function(res){
             alert(res);
@@ -104,7 +103,6 @@ $(function(){
     $(".pause").on("click",function(e){
         e.preventDefault();
         const taskid = $(this).closest("tr").find(".taskid").text()
-        console.log(taskid)
         const data = {flag:"pause",taskid:taskid}
         $.post("../execute/exec.php",data,function(res){
             alert(res);
@@ -117,7 +115,6 @@ $(function(){
         if(confirm("Do you want to remove this task?")){
             const taskid = $(this).closest("tr").find(".taskid").text()
             const taskrow = $(this).closest("tr")
-            console.log(taskid)
             const data = {flag:"delete",taskid:taskid}
             $.post("../execute/exec.php",data,function(res){
                 alert(res);
@@ -134,7 +131,6 @@ $(function(){
         const hours = currentTime.getHours();
         const minutes = currentTime.getMinutes();
         const seconds = currentTime.getSeconds();
-        console.log(seconds)
         const time = hours + " : " + minutes + " : " + seconds;
         // Get the current time in the browser's local time format
         const ampm = hours >= 12 ? 'PM' : 'AM';
