@@ -42,5 +42,5 @@
 		<script src="app/assets/js/jquery-3.3.1.min.js"></script>
 		<script src="app/assets/js/main.js"></script>
         <script src="app/assets/js/app.js"></script>
-	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+	</body>
 </html>
