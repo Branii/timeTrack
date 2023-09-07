@@ -42,6 +42,12 @@
         return parent::addEmployee($arr);
     }
 
+    public function getEmpInfo(String $uid) : array {
+        return parent::getEmpInfo($uid);
+    }
+
+    
+
  }
 
 ?>

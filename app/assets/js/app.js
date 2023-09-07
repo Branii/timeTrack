@@ -65,13 +65,19 @@ $(function(){
 
     $(".close").click(function(e) {
         $.post("../execute/logout.php",function(res){
-            alert(res);
             window.location.href ="../../index.php"
         })
     })
 
     $(".userr").click(function(e) {
         $(".overlays").css("display","block")
+        flag = true
+    })
+
+    $(".exp").click(function(e) {
+        const description = $(this).closest("tr").find(".explain").text()
+        $(".infotext").text(description)
+        $(".overlayss").css("display","block")
         flag = true
     })
 
@@ -82,17 +88,19 @@ $(function(){
     })
 
     $(".task").on("click",function(){
-        const raw = [$(".username").val(),$(".start").val(),$(".end").val()]
+        const raw = [$(".username").val(),$(".start").val(),$(".end").val(),$(".info").val()]
         const isEmpty = raw.some(field => field === "")
         const data = {
             flag:"task",
             username: raw[0],
             start: raw[1],
             end: raw[2],
+            info: raw[3],
         }
         const newtask = (data) => {
             $.post("../execute/exec.php",data,(res)=>{
                 alert(res)
+                //console.log(res)
             })
         }
         isEmpty ? alert("all fields are required"): newtask(data);
@@ -128,6 +136,9 @@ $(function(){
                 taskrow.remove()
             })
         }
+    })
+    $(".menu").on("click",function(){
+        window.location.href = "../view/history.php";
     })
 
 

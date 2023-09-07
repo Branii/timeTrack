@@ -45,23 +45,40 @@ class Model extends Database {
 
     public function newtask(Array $arr) : String {
 
+        $arrData = self::getEmpInfo($arr['username']);
+        $username = $arrData['empname'];
+        $email= $arrData['email'];
+       
         $timeA = strtotime($arr['start']);
         $timeB = strtotime($arr['end']);
         $durationMinutes = round(($timeB - $timeA) / 60);
         $motion = "---";
-        $sql = "INSERT INTO task (username,starttime,endtime,duration,motion)VALUES(?,?,?,?,?)";
+        $date = date("Y-m-d");
+        $sql = "INSERT INTO task (username,email,starttime,endtime,duration,motion,info,created)VALUES(?,?,?,?,?,?,?,?)";
         $stmt = self::openlink()->prepare($sql);
-        $stmt->bindParam(1,$arr['username']);
-        $stmt->bindParam(2,$arr['start']);
-        $stmt->bindParam(3,$arr['end']);
-        $stmt->bindParam(4,$durationMinutes);
-        $stmt->bindParam(5,$motion);
+        $stmt->bindParam(1,$username);
+        $stmt->bindParam(2,$email);
+        $stmt->bindParam(3,$arr['start']);
+        $stmt->bindParam(4,$arr['end']);
+        $stmt->bindParam(5,$durationMinutes);
+        $stmt->bindParam(6,$motion);
+        $stmt->bindParam(7,$arr['info']);
+        $stmt->bindParam(8,$date);
         if($stmt->execute()){
             return "Task scheduled";
         }else{
             return "Something went wront";
         }
         
+    }
+
+    public function getEmpInfo (String $uid) : array {
+        $sql = "SELECT empname,email FROM employees WHERE empid = ? ";
+        $stmt = self::openlink()->prepare($sql);
+        $stmt->bindParam(1,$uid);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data[0];
     }
 
     public function getEmployees () : array {
@@ -75,7 +92,7 @@ class Model extends Database {
 
     public function gettask () : array {
 
-        $sql = "SELECT * FROM task";
+        $sql = "SELECT * FROM task ORDER BY taskid DESC";
         $stmt = self::openlink()->prepare($sql);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
