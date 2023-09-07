@@ -2,16 +2,21 @@
     # database configurations
     class Config {
 
+        private $dsn = "mysql:host=localhost;dbname=timetrack";
+        private $user = "root";
+        private $pass = "root";
+
+        #getters
         public function getDsn() : String {
-            return "mysql:host=localhost;dbname=timetrack";
+            return $this->dsn;
         }
 
         public function getUser() : String {
-            return "root";
+            return $this->user;
         }
 
         public function getPass() : String {
-            return "root";
+            return $this->pass;
         }
 
     }
