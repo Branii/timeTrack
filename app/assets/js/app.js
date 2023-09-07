@@ -34,7 +34,7 @@ $(function(){
             password: params[1],
         }
         const signin = (data) => {
-            $.post("../execute/exec.php",data,(res)=>{
+            $.post("app/execute/exec.php",data,(res)=>{
                 window.location.href = "app/view/home.php";
             })
         }
