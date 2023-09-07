@@ -14,7 +14,7 @@
 
 	<body>
 
-		<div class="wrapper">
+		<div class="wrapper container">
 			<div class="inner">
 				<!-- <img src="app/assets/images/image-1.png" alt="" class="image-1"> -->
 				<form>

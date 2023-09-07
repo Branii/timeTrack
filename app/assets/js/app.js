@@ -63,6 +63,13 @@ $(function(){
         flag = true
     })
 
+    $(".close").click(function(e) {
+        $.post("../execute/logout.php",function(res){
+            alert(res);
+            window.location.href ="../../index.php"
+        })
+    })
+
     $(".userr").click(function(e) {
         $(".overlays").css("display","block")
         flag = true

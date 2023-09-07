@@ -212,7 +212,9 @@ text-decoration:none;
 		<div class="wrapper" >
 			<div class="inner">
 			<form id="myform">
-    
+      <div class="top-right close">
+				<span class="bx bx-log-in" style="font-size:30px;"></span>
+				</div>
   			<h3>Time Track</h3>
 				Current Time: <div id="timer"> 00 : 00 : 00</div><br>
 			  <table class="table user-list" border="1" style="width:100%;background-color:#fff">
@@ -222,38 +224,43 @@ text-decoration:none;
 							<?php 
 						   include "../controller/Controller.php";
 							$data = (new Controller)->gettask();
-							foreach ($data as $item) {
-								$show  = "";
-								if($item['motion'] == "Running"){
-									$show = "<i class='bx bxs-circle' style='color:green'></i>";
-								}else if($item['motion'] == "Paused"){
-									$show = "<i class='bx bxs-circle' style='color:orange'></i>";
-								}
-								?>
-								 <tr>
-                                    <td>
-										<span class='taskid'><?=$item['taskid'];?></span>
-                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
-                                        <span class="user-subhead"><b><?=$item['username'];?></b></span><br>
-                                        <span class="user-subhead">Member</span>
-                                    </td>
-                                    <td class="text-center"><?=$item['starttime'];?></td>
-                                    <td class="text-center"><?=$item['endtime'];?></td>
-                                    <td class="text-center"><span class='count'><?=$item['duration'];?> Min left</span> </td>
-                                    <td class="text-center"><span class='count'><?=$item['motion'];?> </span> <?=$show?></td>
-									<td style="width: 20%;">
-                                       
-                                        <a href="#" class="table-link danger">
-                                            <span class="fa-stack">
-											<i class='bx bx-play-circle play'  style="font-size:25px;"></i>
-											<i class='bx bx-pause-circle pause'  style="font-size:25px;"></i>
-											<i class='bx bx-trash delete'  style="font-size:25px;"></i>
-                                            </span>
-                                        </a>
-                                    </td>
-                                </tr>
-								<?php
-							}
+							if($data){
+                foreach ($data as $item) {
+                  $show  = "";
+                  if($item['motion'] == "Running"){
+                    $show = "<i class='bx bxs-circle' style='color:green'></i>";
+                  }else if($item['motion'] == "Paused"){
+                    $show = "<i class='bx bxs-circle' style='color:orangered'></i>";
+                  }
+                  ?>
+                   <tr>
+                                      <td>
+                      <span class='taskid' hidden><?=$item['taskid'];?></span>
+                                          <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
+                                          <span class="user-subhead"><b><?=$item['username'];?></b></span><br>
+                                          <span class="user-subhead">Member</span>
+                                      </td>
+                                      <td class="text-center"><?=$item['starttime'];?></td>
+                                      <td class="text-center"><?=$item['endtime'];?></td>
+                                      <td class="text-center"><span class='count'><?=$item['duration'];?> Min left</span> </td>
+                                      <td class="text-center"><span class='count'><?=$item['motion'];?> </span> <?=$show?></td>
+                                      <td style="width: 20%;">  
+                                          <a href="#" class="table-link danger">
+                                              <span class="fa-stack">
+                                            <i class='bx bx-play-circle play'  style="font-size:25px;"></i>
+                                            <i class='bx bx-stop-circle pause'  style="font-size:25px;"></i>
+                                            <i class='bx bx-trash delete'  style="font-size:25px;"></i>
+                                              </span>
+                                          </a>
+                                      </td>
+                                  </tr>
+                  <?php
+                }
+              }else{
+                ?>
+                <tr><td><i class='bx bx-info-circle'style='font-size:15px;' ></i> Nothing to track</td></tr>
+                <?php
+              }
 							?>
 
                                
