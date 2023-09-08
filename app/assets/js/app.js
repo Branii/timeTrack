@@ -81,6 +81,23 @@ $(function(){
         flag = true
     })
 
+    $(".progress").change(function(e) {
+        if(confirm("Task progress will be updated, Continue?")){
+            const taskid = $(this).closest("tr").find(".taskid").text()
+            const progress = $(this).val()
+            const data = {
+                flag:"update",
+                taskid:taskid,
+                progress:progress
+            }
+            $.post("../execute/exec.php",data,(res)=>{
+                alert(res)
+                window.location.href = ""
+            })
+            console.log(taskid, progress)
+        }
+    })
+
     $(".top-right").on("click",function(e) {
         flag = false
         window.location.href =""

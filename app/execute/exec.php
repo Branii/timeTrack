@@ -18,6 +18,8 @@ if($arr['flag'] == "register"){
     echo (new Controller)->delete($arr['taskid']);
 }else if($arr['flag'] == "add"){
     echo (new Controller)->addEmployee($arr);
+}else if($arr['flag'] == "update"){
+    echo (new Controller)->updateProgress($arr);
 }
 
 ?>

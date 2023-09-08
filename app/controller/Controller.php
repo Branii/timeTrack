@@ -46,8 +46,14 @@
         return parent::getEmpInfo($uid);
     }
 
-    
+    public function getTaskByEmail(String $email,String $query,String $flag) : array {
+        return parent::getTaskByEmail($email,$query,$flag);
+    }
 
+    public function updateProgress(Array $arr) : string {
+        return parent::updateProgress($arr);
+    }
+    
  }
 
 ?>

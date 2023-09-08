@@ -8,7 +8,6 @@
 
 		<!-- LINEARICONS -->
 		<link rel="stylesheet" href="../assets/fonts/linearicons/style.css">
-		
 		<!-- STYLE CSS -->
 		<link rel="stylesheet" href="../assets/css/style.css">
 		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -317,6 +316,8 @@ h2 {
 			<form id="myform">
       <div class="top-left back">
 				<a href="history.php"><span class="bx bx-arrow-to-left" style="font-size:30px;"></span></a>
+        <a href="home.php"><span class="bx bx-home-alt" style="font-size:30px;"></span></a>
+
 				</div>
   			<h3>
         <?php 
@@ -338,15 +339,109 @@ h2 {
     <label class="tab" id="three-tab" for="three">Search Task</label>
     <label class="tab" id="four-tab" for="four">Print Task</label>
   </div>
-
   <div class="panels">
     <div class="panel" id="one-panel">
-      <div class="panel-title">Title1</div>
-      <p>Content1</p>
+      <table border="1">
+        <?php 
+     
+        $data = (new Controller)->getTaskByEmail((new Controller)->getEmpInfo($_GET['empid'])['email'],"!=","100");
+        if($data){
+          foreach ($data as $item) {
+          
+            ?>
+  
+            <tr>
+               <td>
+               <span class='explain' hidden><?=$item['info'];?></span>
+               <span class='taskid' hidden><?=$item['taskid'];?></span>
+               <img src="../assets/images/<?=$item['avatar']?>" width="30px" style="margin-right:10px;">
+               <span class="user-subhead"><b><?=$item['username'];?></b></span>
+               </td> 
+               <td> <span class="user-subhead"><?=$item['created'];?></span></td>  
+               
+               <td class="text-center"><?=$item['starttime'];?></td>
+               <td class="text-center"><?=$item['endtime'];?></td>
+               <td class="text-center"><span class='count'><?=$item['duration'];?> M</span> </td>
+               <td class="text-center"><progress value="<?=$item['prog'];?>" max="100"></progress><?=$item['prog'];?>%</td>
+               <td><i class='bx bx-info-circle exp' style="font-size:20px;"></i></td>
+               <td>
+               <select class="progress">
+               <option value="<?=$item['prog'];?>"><?=$item['prog'];?>%</option>
+               <option value="0">0%</option>
+                <option value="10">10%</option>
+                <option value="30">30%</option>
+                <option value="50">50%</option>
+                <option value="70">70%</option>
+                <option value="85">85%</option>
+                <option value="100">100%</option>
+               </select>
+               </td>
+  
+  
+            </tr>
+  
+            <?php
+  
+          }
+        }else{
+          ?>
+                <tr><td><i class='bx bx-info-circle'style='font-size:15px;' ></i> Currently has no pending task</td></tr>
+                <?php
+        }
+        
+        ?>
+      </table>
     </div>
     <div class="panel" id="two-panel">
-      <div class="panel-title">Title2</div>
-      <p>Content2</p>
+    <table border="1">
+        <?php 
+     
+        $data = (new Controller)->getTaskByEmail((new Controller)->getEmpInfo($_GET['empid'])['email'],"=","100");
+        if($data){
+          foreach ($data as $item) {
+          
+            ?>
+  
+            <tr>
+               <td>
+               <span class='explain' hidden><?=$item['info'];?></span>
+               <span class='taskid' hidden><?=$item['taskid'];?></span>
+               <img src="../assets/images/<?=$item['avatar']?>" width="30px" style="margin-right:10px;">
+               <span class="user-subhead"><b><?=$item['username'];?></b></span>
+               </td> 
+               <td> <span class="user-subhead"><?=$item['created'];?></span></td>  
+               
+               <td class="text-center"><?=$item['starttime'];?></td>
+               <td class="text-center"><?=$item['endtime'];?></td>
+               <td class="text-center"><span class='count'><?=$item['duration'];?> M</span> </td>
+               <td class="text-center"><progress value="<?=$item['prog'];?>" max="100"></progress><?=$item['prog'];?>%</td>
+               <td><i class='bx bx-info-circle exp' style="font-size:20px;"></i></td>
+               <td>
+               <select class="progress">
+               <option value="<?=$item['prog'];?>"><?=$item['prog'];?>%</option>
+               <option value="0">0%</option>
+                <option value="10">10%</option>
+                <option value="30">30%</option>
+                <option value="50">50%</option>
+                <option value="70">70%</option>
+                <option value="85">85%</option>
+                <option value="100">100%</option>
+               </select>
+               </td>
+  
+            </tr>
+  
+            <?php
+  
+          }
+        }else{
+          ?>
+                <tr><td><i class='bx bx-info-circle'style='font-size:15px;' ></i> Currently has no completed task</td></tr>
+                <?php
+        }
+        
+        ?>
+      </table>
     </div>
     <div class="panel" id="three-panel">
       <div class="panel-title">Title3</div>
@@ -366,6 +461,26 @@ h2 {
 			
 		</div>
 
+
+    <div class="overlayss">
+        <center><br><br>
+        <div class="inner">
+		
+				<form id="myform">
+				<div class="top-right">
+				<span class="lnr lnr-cross-circle" style="font-size:30px;"></span>
+				</div>
+					<h3>Task Description</h3>
+          <div  style="width:100%;border:dotted 2px #ccc;height:auto;overflow:scroll;text-align:left;padding:20px;">
+          <span class="infotext"> </span>
+          </div>
+					
+				</form>
+
+			</div>
+            
+        </center>
+</div>
 	
 		<script src="../assets/js/jquery-3.3.1.min.js"></script>
 		<script src="../assets/js/main.js"></script>

@@ -25,7 +25,7 @@
 			<div class="inner">
 			<form id="myform">
       <div class="top-right close">
-				<span class="bx bx-log-in" style="font-size:30px;"></span>
+				<span class="lnr lnr-cross-circle" style="font-size:30px;"></span>
 				</div>
   			<h3>Time Track</h3>
 				Current Time: <div id="timer"> 00 : 00 : 00</div><br>
@@ -53,7 +53,7 @@
                       <span class='explain' hidden><?=$item['info'];?></span>
                                           <img src="https://bootdey.com/img/Content/user_1.jpg" alt="">
                                           <span class="user-subhead"><b><?=$item['username'];?></b></span><br>
-                                          <span class="user-subhead">Member</span>
+                                          <span class="user-subhead"><b><?=$item['created'];?></span>
                                       </td>
                                       <td class="text-center"><?=$item['starttime'];?></td>
                                       <td class="text-center"><?=$item['endtime'];?></td>
@@ -61,9 +61,7 @@
                                       <td class="text-center">
                                       <progress value="<?=$item['prog'];?>" max="100"></progress><?=$item['prog'];?>%
                                       </td>
-                                      <td>
-                                      <i class='bx bx-info-circle exp' style="font-size:20px;"></i>
-                                      </td>
+                                      <td><i class='bx bx-info-circle exp' style="font-size:20px;"></i></td>
                                       <td class="text-center"><span class='count'></span> <?=$show?></td>
                                       <td style="width: 20%;">  
                                           <a href="#" class="table-link danger">
@@ -73,6 +71,16 @@
                                             <i class='bx bx-trash delete'  style="font-size:25px;"></i>
                                               </span>
                                           </a>
+                                          <select class="progress">
+               <option value="<?=$item['prog'];?>"><?=$item['prog'];?>%</option>
+               <option value="0">0%</option>
+                <option value="10">10%</option>
+                <option value="30">30%</option>
+                <option value="50">50%</option>
+                <option value="70">70%</option>
+                <option value="85">85%</option>
+                <option value="100">100%</option>
+               </select>
                                       </td>
                                   </tr>
                   <?php

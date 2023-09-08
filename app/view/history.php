@@ -246,6 +246,7 @@ text-decoration:none;
 			<form id="myform">
       <div class="top-left back">
 				<a href="home.php"><span class="bx bx-arrow-to-left" style="font-size:30px;"></span></a>
+        <a href="home.php"><span class="bx bx-home-alt" style="font-size:30px;"></span></a>
 				</div>
   			<h3>Time Track History</h3>
 				Employee List: <p></p><br>

@@ -48,13 +48,14 @@ class Model extends Database {
         $arrData = self::getEmpInfo($arr['username']);
         $username = $arrData['empname'];
         $email= $arrData['email'];
+        $avatar= $arrData['avatar'];
        
         $timeA = strtotime($arr['start']);
         $timeB = strtotime($arr['end']);
         $durationMinutes = round(($timeB - $timeA) / 60);
         $motion = "---";
         $date = date("Y-m-d");
-        $sql = "INSERT INTO task (username,email,starttime,endtime,duration,motion,info,created)VALUES(?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO task (username,email,starttime,endtime,duration,motion,info,created,avatar)VALUES(?,?,?,?,?,?,?,?,?)";
         $stmt = self::openlink()->prepare($sql);
         $stmt->bindParam(1,$username);
         $stmt->bindParam(2,$email);
@@ -64,6 +65,7 @@ class Model extends Database {
         $stmt->bindParam(6,$motion);
         $stmt->bindParam(7,$arr['info']);
         $stmt->bindParam(8,$date);
+        $stmt->bindParam(9,$avatar);
         if($stmt->execute()){
             return "Task scheduled";
         }else{
@@ -73,7 +75,7 @@ class Model extends Database {
     }
 
     public function getEmpInfo (String $uid) : array {
-        $sql = "SELECT empname,email FROM employees WHERE empid = ? ";
+        $sql = "SELECT * FROM employees WHERE empid = ? ";
         $stmt = self::openlink()->prepare($sql);
         $stmt->bindParam(1,$uid);
         $stmt->execute();
@@ -94,6 +96,16 @@ class Model extends Database {
 
         $sql = "SELECT * FROM task ORDER BY taskid DESC";
         $stmt = self::openlink()->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function getTaskByEmail (String $email, String $query, String $flag) : array {
+        $sql = "SELECT * FROM task WHERE email = ? AND prog $query ? ORDER BY taskid DESC";
+        $stmt = self::openlink()->prepare($sql);
+        $stmt->bindParam(1,$email);
+        $stmt->bindParam(2,$flag);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
@@ -148,7 +160,15 @@ class Model extends Database {
         
     }
 
-    
+    public function updateProgress(Array $arr) : string{
+        
+        $sql = "UPDATE task SET prog = ? WHERE taskid = ?";
+        $stmt = self::openlink()->prepare($sql);
+        $stmt->bindParam(1,$arr['progress']);
+        $stmt->bindParam(2,$arr['taskid']);
+        $stmt->execute();
+        return "Progress updated";
+    }
     
 
     public function checkregister(Array $arr) : bool {
