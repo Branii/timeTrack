@@ -53,7 +53,11 @@
     public function updateProgress(Array $arr) : string {
         return parent::updateProgress($arr);
     }
-    
+
+    public function ifAvailable(String $page)  {
+        return parent::ifAvailable($page);
+    }
+
  }
 
 ?>

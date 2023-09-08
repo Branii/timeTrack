@@ -1,3 +1,10 @@
+<?php 
+//include "app/config/Config.php";
+include "app/config/Database.php";
+include "app/model/Model.php";
+// include "app/controller/Controller.php";
+// (new Controller)->ifAvailable("index");
+?>
 <!DOCTYPE html>
 <html>
 	<head>

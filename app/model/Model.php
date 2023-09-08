@@ -29,10 +29,12 @@ class Model extends Database {
         $stmt->execute();
         if($stmt->rowCount() > 0) {
              $uid = $stmt->fetch(PDO::FETCH_OBJ)->uid;
+             $email = $stmt->fetch(PDO::FETCH_OBJ)->email;
              $hash = $stmt->fetch(PDO::FETCH_OBJ)->password;
             if(password_verify($arr['password'],$hash)){
                 session_start();
                 $_SESSION['uid'] = $uid;
+                $_SESSION['email'] = $email;
                 return "success";
             }else{
                 return "Wrong password";
@@ -182,5 +184,22 @@ class Model extends Database {
         }else{
             return false;
         }
+    }
+
+    public function ifAvailable(String $page){
+        if($page =="index"){
+            if(isset($_SESSION['uid']) && isset($_SESSION['email'])){
+                header("location:app/view/home.php");
+            }else{
+                
+            }
+        }else{
+            if(isset($_SESSION['uid']) && isset($_SESSION['email'])){
+                
+            }else{
+                header("location:../index.php");
+            }
+        }
+        
     }
 }

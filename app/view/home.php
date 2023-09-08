@@ -29,7 +29,7 @@
 				</div>
   			<h3>Time Track</h3>
 				Current Time: <div id="timer"> 00 : 00 : 00</div><br>
-			  <table class="table user-list"  style="width:100%;background-color:#fff">
+			  <table class="table user-list"  style="width:100%;">
                             
                             <tbody>
 
@@ -46,8 +46,13 @@
                   }else if($item['motion'] == "---"){
                     $show = "<i class='bx bxs-circle' style='color:#aaa'></i>";
                   }
+                  $style = "";
+                  if(intval($item['duration']) <= 0){
+                    $style = "style='border:solid 1px orangered'";
+                  }
                   ?>
-                   <tr>
+                   <tr style="border:solid 1px #ccc">
+                   <div style="<?=$style?>">
                                       <td>
                       <span class='taskid' hidden><?=$item['taskid'];?></span>
                       <span class='explain' hidden><?=$item['info'];?></span>
@@ -71,17 +76,18 @@
                                             <i class='bx bx-trash delete'  style="font-size:25px;"></i>
                                               </span>
                                           </a>
-                                          <select class="progress">
-               <option value="<?=$item['prog'];?>"><?=$item['prog'];?>%</option>
-               <option value="0">0%</option>
-                <option value="10">10%</option>
-                <option value="30">30%</option>
-                <option value="50">50%</option>
-                <option value="70">70%</option>
-                <option value="85">85%</option>
-                <option value="100">100%</option>
-               </select>
+                                          <!-- <select class="progress">
+                                          <option value="<?=$item['prog'];?>"><?=$item['prog'];?>%</option>
+                                          <option value="0">0%</option>
+                                            <option value="10">10%</option>
+                                            <option value="30">30%</option>
+                                            <option value="50">50%</option>
+                                            <option value="70">70%</option>
+                                            <option value="85">85%</option>
+                                            <option value="100">100%</option>
+                                          </select> -->
                                       </td>
+                                      </div>
                                   </tr>
                   <?php
                 }
