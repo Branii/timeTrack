@@ -1,6 +1,9 @@
-
+<?php session_start(); 
+$email = $_SESSION['email'];
+$empid = $_SESSION['empid'];
+?>
 <!DOCTYPE html>
-<htmloncontextmenu="return false">
+<html oncontextmenu="return false">
 	<head>
 		<meta charset="utf-8">
 		<title>TimeTrack</title>
@@ -27,7 +30,9 @@
       <div class="top-right close">
 				<span class="lnr lnr-cross-circle" style="font-size:30px;"></span>
 				</div>
-  			<h3>Time Track</h3>
+        <?php include "../class/Controller.php"?>;
+          
+  			<h3>Time Track [<?= (new Controller)->getEmpInfo($empid)['empname']?>]</h3>
 				Current Time: <div id="timer"> 00 : 00 : 00</div><br>
 			  <table class="table user-list"  style="width:100%;">
                             
@@ -35,7 +40,7 @@
 
 							<?php 
 						 include_once "../class/Controller.php";
-							$data = (new Controller)->gettask();
+							$data = (new Controller)->getTaskByEmail ($email,"!=", "100");
 							if($data){
                 foreach ($data as $item) {
                   $show  = "";
@@ -69,15 +74,14 @@
                                       <td><i class='bx bx-info-circle exp' style="font-size:20px;"></i></td>
                                       <td class="text-center"><span class='count'></span> <?=$show?></td>
                                       <td>  
-                                          <a href="#" class="table-link danger">
+                                          <!-- <a href="#" class="table-link danger">
                                               <span class="fa-stack">
-                                            <i class='bx bx-play-circle play'  style="font-size:25px;color:#aaa"></i>
-                                            <i class='bx bx-stop-circle pause'  style="font-size:25px;color:#aaa"></i>
-                                            <i class='bx bx-trash delete'  style="font-size:25px;color:#aaa"></i>
-                                            <i class='bx bx-check-circle done'  style="font-size:25px;color:green"></i>
+                                            <i class='bx bx-play-circle play'  style="font-size:25px;"></i>
+                                            <i class='bx bx-stop-circle pause'  style="font-size:25px;"></i>
+                                            <i class='bx bx-trash delete'  style="font-size:25px;"></i>
                                               </span>
-                                          </a>
-                                          <!-- <select class="progress">
+                                          </a> -->
+                                          <select class="progress">
                                           <option value="<?=$item['prog'];?>"><?=$item['prog'];?>%</option>
                                           <option value="0">0%</option>
                                             <option value="10">10%</option>
@@ -86,7 +90,7 @@
                                             <option value="70">70%</option>
                                             <option value="85">85%</option>
                                             <option value="100">100%</option>
-                                          </select> -->
+                                          </select>
                                       </td>
                                       </div>
                                   </tr>
@@ -119,71 +123,14 @@
 
 <div style="position: relative;top:-20px;right:20px">
 <div class="menu-container">
+<a href="mytasks">
   <div class="menu-toggle-btn">
-    <i class="bx bx-plus plus"></i>
+    <i class="bx bx-menu plus"></i>
   </div>
-  <ul class="menu-list">
-    <li class="menu-item userr">
-      <a href="#"><i class="bx bx-user-plus"></i></a>
-    </li>
-	<li class="menu-item radial">
-      <a href="#"><i class="bx bx-timer timex "></i></a>
-    </li>
-    <li class="menu-item menu">
-      <a href="#"><i class="bx bx-menu"></i></a>
-    </li>
-    
-  </ul>
+  </a>
 </div>
 </div>
 
-
-<div class="overlay">
-        <center><br><br>
-        <div class="inner">
-		
-				<form id="myform">
-				<div class="top-right">
-				<span class="lnr lnr-cross-circle" style="font-size:30px;"></span>
-				</div>
-					<h3>New Task</h3>
-					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<select class="form-control username">
-						 <?php
-						  $row = (new Controller)->getEmployees();
-						  foreach ($row as $item) {
-							?>
-								<option value='<?=$item['empid']?>'><?=$item['empname']?></option>
-							<?php
-						  }
-						 ?>
-						</select>
-					</div>
-              
-          <div class="form-holder">
-					<textarea style="height: 80px;" class="form-control info" placeholder="Description (short)"></textarea>
-					</div>
-
-					<div class="form-holder">
-					<span class="lnr lnr-history"></span>
-						<input type="time" class="form-control start" placeholder="Start time" autocomplete="off" >
-					</div>
-          <div class="form-holder">
-					<span class="lnr lnr-history"></span>
-						<input type="time" class="form-control end" placeholder="end time" autocomplete="off" >
-					</div>
-					
-					
-					<button class="task">
-						<span>Create Task</span>
-					</button>
-				</form>
-
-			</div>
-            
-        </center>
-</div>
 
 <div class="overlayss">
         <center><br><br>
@@ -205,63 +152,11 @@
         </center>
 </div>
 
-<div class="overlays">
-        <center><br><br><br>
-        <div class="inner">
-		
-				<form id="myform">
-				<div class="top-right">
-				<span class="lnr lnr-cross-circle" style="font-size:30px;"></span>
-				</div>
-					<h3>New Employee</h3>
-					
-					<div class="form-holder">
-					<span class="lnr lnr-history"></span>
-						<input type="text" class="form-control name" placeholder="Employee name" autocomplete="off" >
-					</div>
 
-					<div class="form-holder">
-					<span class="lnr lnr-envelop"></span>
-						<input type="text" class="form-control email" placeholder="Employee name" autocomplete="off" >
-					</div>
-					
-					
-					<button class="employee">
-						<span>Add Employee</span>
-					</button>
-          <br><br>
-          
-          <div style="overflow:scroll;max-height:300px;height:auto">
-          <?php
-						  $row = (new Controller)->getEmployees();
-						  foreach ($row as $item) {
-							?>
-								<li class="mylist">
-                <span style="margin-right:10px;">
-                <i class='bx bx-trash bin'  style="font-size:20px;"></i>
-                </span>
-                <span>
-                  <img src="../assets/images/<?=$item['avatar']?>" width="30px" style="margin-right:10px;">
-                  <?=$item['empname']?> 
-                  </span>
-              </li>
-							<?php
-						  }
-						 ?>
-        </div>
-				</form>
-
-
-        
-	
-			</div>
-            
-        </center>
-</div>
 		 
 		
 		<script src="../assets/js/jquery-3.3.1.min.js"></script>
 		<script src="../assets/js/main.js"></script>
-        <script src="../assets/js/app.js"></script>
+        <script src="../assets/js/emp.js"></script>
 	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

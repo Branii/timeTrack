@@ -1,4 +1,7 @@
-
+<?php session_start(); 
+$email = $_SESSION['email'];
+$empid = $_SESSION['empid'];
+?>
 <!DOCTYPE html>
 <html oncontextmenu="return false">
 	<head>
@@ -315,14 +318,13 @@ h2 {
 			<div class="inner">
 			<form id="myform">
       <div class="top-left back">
-				<a href="history.php"><span class="bx bx-arrow-to-left" style="font-size:30px;"></span></a>
-        <a href="home.php"><span class="bx bx-home-alt" style="font-size:30px;"></span></a>
-
+				<a href="dashboard"><span class="bx bx-arrow-to-left" style="font-size:30px;"></span></a>
+       
 				</div>
   			<h3>
         <?php 
           include "../class/Controller.php";
-          echo (new Controller)->getEmpInfo($_GET['empid'])['empname'];
+          echo (new Controller)->getEmpInfo($empid)['empname'];
           ?>
         </h3>
 			
@@ -344,7 +346,7 @@ h2 {
       <table border="1">
         <?php 
      
-        $data = (new Controller)->getTaskByEmail((new Controller)->getEmpInfo($_GET['empid'])['email'],"!=","100");
+        $data = (new Controller)->getTaskByEmail((new Controller)->getEmpInfo($empid)['email'],"!=","100");
         if($data){
           foreach ($data as $item) {
           
@@ -396,7 +398,7 @@ h2 {
     <table border="1">
         <?php 
      
-        $data = (new Controller)->getTaskByEmail((new Controller)->getEmpInfo($_GET['empid'])['email'],"=","100");
+        $data = (new Controller)->getTaskByEmail((new Controller)->getEmpInfo($empid)['email'],"=","100");
         if($data){
           foreach ($data as $item) {
           
@@ -416,7 +418,7 @@ h2 {
                <td class="text-center"><span class='count'><?=$item['duration'];?> M</span> </td>
                <td class="text-center"><progress value="<?=$item['prog'];?>" max="100"></progress><?=$item['prog'];?>%</td>
                <td><i class='bx bx-info-circle exp' style="font-size:20px;"></i></td>
-               <td>
+               <!-- <td>
                <select class="progress">
                <option value="<?=$item['prog'];?>"><?=$item['prog'];?>%</option>
                <option value="0">0%</option>
@@ -427,7 +429,7 @@ h2 {
                 <option value="85">85%</option>
                 <option value="100">100%</option>
                </select>
-               </td>
+               </td> -->
   
             </tr>
   
@@ -436,7 +438,7 @@ h2 {
           }
         }else{
           ?>
-                <tr><td><i class='bx bx-info-circle'style='font-size:15px;' ></i> Currently has no completed task</td></tr>
+                <tr><td><i class='bx bx-info-circle'style='font-size:15px;'></i> Currently has no completed task</td></tr>
                 <?php
         }
         
@@ -444,8 +446,7 @@ h2 {
       </table>
     </div>
     <div class="panel" id="three-panel">
-      <div class="panel-title">Title3</div>
-      <p>Content3</p>
+      Waiting for implementation
     </div>
     <div class="panel" id="four-panel">
       <div class="panel-title">Title3</div>

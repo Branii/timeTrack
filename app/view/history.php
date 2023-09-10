@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html oncontextmenu="return false">
 	<head>
 		<meta charset="utf-8">
 		<title>RegistrationForm_v10 by Colorlib</title>
@@ -252,13 +252,13 @@ text-decoration:none;
 				Employee List: <p></p><br>
         <div style="overflow:scroll;max-height:300px;height:auto">
           <?php
-           include "../controller/Controller.php";
+           include "../class/Controller.php";
 						  $row = (new Controller)->getEmployees();
               $counter = 0;
 						  foreach ($row as $item) {
                 $counter++;
 							?>
-								<a href="tasks.php?empid=<?=$item['empid']?>"><li class="mylist" style="cursor:pointer">
+								<a href="tasks?empid=<?=$item['empid']?>"><li class="mylist" style="cursor:pointer">
                 <span style="margin-right:10px;">
                 <?=$counter?>
                 </span>

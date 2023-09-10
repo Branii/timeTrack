@@ -1,5 +1,5 @@
 <?php 
-include "Config.php";
+require_once "Config.php";
 class Database extends Config{
     public function openlink() {
         return new PDO(

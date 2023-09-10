@@ -1,5 +1,5 @@
 <?php 
- include "../model/Model.php";
+ require_once "Model.php";
  class Controller extends Model {
 
     public function register(Array $arr) : string{
@@ -8,6 +8,10 @@
 
     public function signin(Array $arr) : string{
         return parent::signin($arr);
+    }
+
+    public function esignin(Array $arr) : string{
+        return parent::esignin($arr);
     }
 
     public function newtask(Array $arr) : string{
@@ -54,8 +58,16 @@
         return parent::updateProgress($arr);
     }
 
+    public function taskDone($taskid) : string {
+        return parent::taskDone($taskid);
+    }
+
     public function ifAvailable(String $page)  {
         return parent::ifAvailable($page);
+    }
+
+    public function ifAvailableE(String $page)  {
+        return parent::ifAvailableE($page);
     }
 
  }

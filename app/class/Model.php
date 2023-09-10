@@ -1,5 +1,5 @@
 <?php
-include "../config/Database.php";
+require_once "Database.php";
 class Model extends Database {
 
     public function register(Array $arr) : String {
@@ -45,6 +45,34 @@ class Model extends Database {
         }
     }
 
+    public function esignin(Array $arr) : String {
+        try {
+            $sql = "SELECT * FROM employees WHERE email = ?";
+            $stmt = self::openlink()->prepare($sql);
+            $stmt->bindParam(1, $arr['email']);
+            $stmt->execute();
+    
+            if ($stmt->rowCount() > 0) {
+                $data = $stmt->fetch(PDO::FETCH_ASSOC);
+                $hashedPassword = $data['password'];
+    
+                if (password_verify($arr['password'], $hashedPassword)) {
+                    session_start();
+                    $_SESSION['email'] = $data['email'];
+                    $_SESSION['empid'] = $data['empid'];
+                    return "success";
+                } else {
+                    return "Wrong password";
+                }
+            } else {
+                return "Wrong email";
+            }
+        } catch (PDOException $e) {
+            // Handle database errors here, e.g., log the error or return an error message
+            return "Database Error";
+        }
+    }
+    
     public function newtask(Array $arr) : String {
 
         $arrData = self::getEmpInfo($arr['username']);
@@ -95,9 +123,14 @@ class Model extends Database {
     }
 
     public function gettask () : array {
-
-        $sql = "SELECT * FROM task ORDER BY taskid DESC";
+        $m1 = "Running";
+        $m2 = "Paused";
+        $m3 = "---";
+        $sql = "SELECT * FROM task WHERE motion = ? OR motion = ? OR motion = ? ORDER BY taskid DESC";
         $stmt = self::openlink()->prepare($sql);
+        $stmt->bindParam(1,$m1);
+        $stmt->bindParam(2,$m2);
+        $stmt->bindParam(3,$m3);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
@@ -131,6 +164,16 @@ class Model extends Database {
         $stmt->execute();
         return "Running";
     }
+
+    public function taskDone(String $taskid) : string {
+        $status = "Done";
+        $sql = "UPDATE task SET motion = ? WHERE taskid = ?";
+        $stmt = self::openlink()->prepare($sql);
+        $stmt->bindParam(1,$status);
+        $stmt->bindParam(2,$taskid);
+        $stmt->execute();
+        return "Task Completed";
+    }
     public function pause(String $taskid) : string{
         $status = "Paused";
         $sql = "UPDATE task SET motion = ? WHERE taskid = ?";
@@ -163,11 +206,12 @@ class Model extends Database {
     }
 
     public function updateProgress(Array $arr) : string{
-        
-        $sql = "UPDATE task SET prog = ? WHERE taskid = ?";
+        $m1 = "Running";
+        $sql = "UPDATE task SET prog = ?, motion = ?  WHERE taskid = ?";
         $stmt = self::openlink()->prepare($sql);
         $stmt->bindParam(1,$arr['progress']);
-        $stmt->bindParam(2,$arr['taskid']);
+        $stmt->bindParam(2,$m1);
+        $stmt->bindParam(3,$arr['taskid']);
         $stmt->execute();
         return "Progress updated";
     }
@@ -191,13 +235,30 @@ class Model extends Database {
             if(isset($_SESSION['uid']) && isset($_SESSION['email'])){
                 header("location:app/view/home.php");
             }else{
-                
+                //echo "Session is not set";
             }
         }else{
             if(isset($_SESSION['uid']) && isset($_SESSION['email'])){
-                
+                //echo "Session is set";
             }else{
                 header("location:../index.php");
+            }
+        }
+        
+    }
+
+    public function ifAvailableE(String $page){
+        if($page =="employee"){
+            if(isset($_SESSION['empid']) && isset($_SESSION['email'])){
+                header("location:app/view/dashboard.php");
+            }else{
+                //echo "Session is not set";
+            }
+        }else{
+            if(isset($_SESSION['empid']) && isset($_SESSION['email'])){
+                //echo "Session is set";
+            }else{
+                header("location:../employee.php");
             }
         }
         

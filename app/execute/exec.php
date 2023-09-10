@@ -1,11 +1,13 @@
 <?php 
-include "../controller/Controller.php";
+include "../class/Controller.php";
 $arr = $_POST;
 
 if($arr['flag'] == "register"){
     echo (new Controller)->register($arr);
 }else if($arr['flag'] == "signin"){
     echo (new Controller)->signin($arr);
+}else if($arr['flag'] == "esignin"){
+    echo (new Controller)->esignin($arr);
 }else if($arr['flag'] == "task"){
     echo (new Controller)->newtask($arr);
 }else if($arr['flag'] == "timer"){
@@ -20,6 +22,8 @@ if($arr['flag'] == "register"){
     echo (new Controller)->addEmployee($arr);
 }else if($arr['flag'] == "update"){
     echo (new Controller)->updateProgress($arr);
+}else if($arr['flag'] == "done"){
+    echo (new Controller)->taskDone($arr['taskid']);
 }
 
 ?>

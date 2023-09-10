@@ -5,41 +5,7 @@ $(function(){
         $('.menu-toggle-btn').toggleClass("effect");
         $('.menu-list').toggleClass("effect");
       });
-    
-    $(".registger").on("click",function(e){
-        e.preventDefault();
-        const raw = [$(".username").val(),$(".email").val(),$(".mobile").val(),$(".password").val()]
-        const isEmpty = raw.some(field => field === "")
-        const data = {
-            "username":raw[0],
-            "email":raw[1],
-            "mobile":raw[2],
-            "password":raw[3],
-        }
-        const register = (data) => {
-            $.post("../execute/exec",data,(res)=>{
-                console.log(res);
-            })
-        }
-        isEmpty ? alert("all fields are required"): register(data);
-    })
-
-    $(".signin").on("click",function(e){
-        e.preventDefault();
-        const params = [$(".email").val(),$(".password").val()]
-        isEmpty = params.some(field => field === "")
-        const data = {
-            flag:"signin",
-            email: params[0],
-            password: params[1],
-        }
-        const signin = (data) => {
-            $.post("app/execute/exec",data,(res)=>{
-                (res.trim() == "success") ?window.location.href = "app/view/home.php" : alert(res);
-            })
-        }
-        isEmpty ? alert("all fields are required"): signin(data);
-    })
+   
 
     $(".empbtn").on("click",function(e) {
         e.preventDefault();
@@ -52,28 +18,13 @@ $(function(){
         }
         const signin = (data) => {
             $.post("app/execute/exec",data,(res)=>{
-                (res.trim() == "success") ?window.location.href = "app/view/dashboard.php" : alert(res);
+                (res.trim() == "success") ?window.location.href = "app/view/dashboard" : alert(res);
             })
         }
         isEmpty ? alert("all fields are required"): signin(data);
     })
 
-    $(".employee").on("click",function(e){
-        e.preventDefault();
-        const params = [$(".name").val(),$(".email").val()]
-        isEmpty = params.some(field => field === "")
-        const data = {
-            flag:"add",
-            name: params[0],
-            email: params[1]
-        }
-        const addEmployee = (data) => {
-            $.post("../execute/exec",data,(res)=>{
-                alert(res)
-            })
-        }
-        isEmpty ? alert("all fields are required"): addEmployee(data);
-    })
+   
 
     $(".radial").click(function(e) {
         $(".overlay").css("display","block")
@@ -82,7 +33,7 @@ $(function(){
 
     $(".close").click(function(e) {
         $.post("../execute/logout.php",function(res){
-            window.location.href ="../../master"
+            window.location.href ="../../employee"
         })
     })
 
@@ -171,22 +122,8 @@ $(function(){
             })
         }
     })
-
-    $(".done").on("click",function(e){
-        e.preventDefault();
-        if(confirm("Do you want to mark as completed?")){
-            const taskid = $(this).closest("tr").find(".taskid").text()
-            const taskrow = $(this).closest("tr")
-            const data = {flag:"done",taskid:taskid}
-            $.post("../execute/exec",data,function(res){
-                alert(res);
-                taskrow.remove()
-            })
-        }
-    })
-
     $(".menu").on("click",function(){
-        window.location.href = "../view/history";
+        window.location.href = "../view/mytask";
     })
 
 
@@ -204,7 +141,7 @@ $(function(){
 
         if(seconds == 0){
             const data = {flag:"timer"}
-            $.post("../execute/exec.php",data,function(res){
+            $.post("../execute/exec",data,function(res){
                 console.log(res);
                 if(flag == true){
                     // wait for open modals
