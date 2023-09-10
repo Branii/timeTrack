@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 07, 2023 at 02:02 AM
+-- Generation Time: Sep 08, 2023 at 02:48 AM
 -- Server version: 5.7.34
 -- PHP Version: 8.0.8
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `employees` (
   `empid` int(11) NOT NULL,
+  `avatar` varchar(50) NOT NULL,
   `empname` varchar(100) NOT NULL,
   `email` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -37,18 +38,18 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`empid`, `empname`, `email`) VALUES
-(2, 'Ebenezer Atakora', 'example@gmail.com'),
-(3, 'Maxwell Chapo', 'example@gmail.com'),
-(4, 'Bismark Ansah', 'example@gmail.com'),
-(5, 'Joseph Nketiah', 'example@gmail.com'),
-(6, 'Steven Manfo', 'example@gmail.com'),
-(7, 'Fredrick Dollar', 'example@gmail.com'),
-(8, 'Randy Odoom', 'example@gmail.com'),
-(9, 'Perfect Delali', 'example@gmail.com'),
-(10, 'Frank Long', 'example@gmail.com'),
-(11, 'Kwame Insider', 'example@gmail.com'),
-(12, 'Emmanuel (Chairman)', 'example@gmail.com');
+INSERT INTO `employees` (`empid`, `avatar`, `empname`, `email`) VALUES
+(2, 'user_1.jpg', 'Ebenezer Atakora', 'example2@gmail.com'),
+(3, 'user_3.jpg', 'Maxwell Chapo', 'example8@gmail.com'),
+(4, 'user_1.jpg', 'Bismark Ansah', 'example1@gmail.com'),
+(5, 'user_3.jpg', 'Joseph Nketiah', 'example6@gmail.com'),
+(6, 'user_2.jpg', 'Steven Manfo', 'example11@gmail.com'),
+(7, 'user_1.jpg', 'Fredrick Dollar', 'example5@gmail.com'),
+(8, 'user_1.jpg', 'Randy Odoom', 'example10@gmail.com'),
+(9, 'user_3.jpg', 'Perfect Delali', 'example9@gmail.com'),
+(10, 'user_2.jpg', 'Frank Long', 'example4@gmail.com'),
+(11, 'user_2.jpg', 'Kwame Insider', 'example7@gmail.com'),
+(12, 'user_3.jpg', 'Emmanuel (Chairman)', 'example3@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -59,21 +60,25 @@ INSERT INTO `employees` (`empid`, `empname`, `email`) VALUES
 CREATE TABLE `task` (
   `taskid` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
+  `avatar` varchar(50) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `starttime` varchar(11) NOT NULL,
   `endtime` varchar(11) NOT NULL,
   `duration` varchar(11) NOT NULL,
-  `motion` varchar(10) DEFAULT NULL
+  `motion` varchar(10) DEFAULT NULL,
+  `info` text,
+  `prog` varchar(100) NOT NULL DEFAULT '0',
+  `created` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`taskid`, `username`, `starttime`, `endtime`, `duration`, `motion`) VALUES
-(2, 'Steven Manfo', '01:00', '23:03', '1252', 'Paused'),
-(3, 'Bismark Ansah', '01:04', '23:08', '1246', 'Paused'),
-(5, 'Yusif Muneru', '00:31', '01:31', '-3', 'Paused'),
-(6, 'Randy Odoom', '00:34', '02:34', '59', 'Paused');
+INSERT INTO `task` (`taskid`, `username`, `avatar`, `email`, `starttime`, `endtime`, `duration`, `motion`, `info`, `prog`, `created`) VALUES
+(21, 'Randy Odoom', 'user_1.jpg', 'example10@gmail.com', '00:30', '05:36', '255', 'Running', 'Similique architecto nesciunt ullam animi corrupti. Fuga maiores nulla. Accusantium tempore accusamus veritatis molestias consequatur vero quasi.\r\nOfficiis est inventore aspernatur voluptates. Cum nostrum perferendis repellendus corporis aliquam. Praesentium placeat accusantium debitis aut perspiciatis architecto.\r\nVeniam quaerat dolores mollitia eligendi suscipit reiciendis alias. Molestiae neque magnam ducimus a cumque perspiciatis adipisci. Aut consequatur aliquid et quaerat et laboriosam.', '50', '2023-09-08'),
+(24, 'Randy Odoom', 'user_1.jpg', 'example10@gmail.com', '02:31', '05:36', '140', 'Running', 'dfsdfsdf', '30', '2023-09-08'),
+(25, 'Maxwell Chapo', 'user_3.jpg', 'example8@gmail.com', '00:34', '00:36', '-11', 'Running', 'erwerer', '85', '2023-09-08');
 
 -- --------------------------------------------------------
 
@@ -136,7 +141,7 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `taskid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `taskid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`
