@@ -30,7 +30,7 @@ $empid = $_SESSION['empid'];
       <div class="top-right close">
 				<span class="lnr lnr-cross-circle" style="font-size:30px;"></span>
 				</div>
-        <?php include "../class/Controller.php"?>;
+        <?php include "../class/Controller.php"?>
           
   			<h3>Time Track [<?= (new Controller)->getEmpInfo($empid)['empname']?>]</h3>
 				Current Time: <div id="timer"> 00 : 00 : 00</div><br>
